@@ -2,6 +2,9 @@
 
 A fully functional desktop chat application built with Java Swing for the UI and Java sockets for networking, featuring WhatsApp-like functionality.
 
+Demo Video :
+https://1drv.ms/v/c/4627ced1e4686ac7/IQA1pHzODRODToh2ZJpG3sQ1ASF-UxjQiiH3_HgGXZ6FrkQ?e=auoCpW
+
 ## Features
 
 - Real-time messaging between multiple clients
