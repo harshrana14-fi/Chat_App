@@ -11,7 +11,7 @@ import java.awt.geom.RoundRectangle2D;
 public class ChatApp extends JFrame {
 
     public ChatApp() {
-        setTitle("ChitChat");
+        setTitle("Talksy");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(400, 550);
         setLocationRelativeTo(null);
@@ -64,7 +64,7 @@ public class ChatApp extends JFrame {
         };
         iconLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        JLabel titleLabel = new JLabel("ChitChat");
+        JLabel titleLabel = new JLabel("Talksy");
         titleLabel.setFont(new Font("Segoe UI", Font.BOLD, 26));
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -209,7 +209,7 @@ public class ChatApp extends JFrame {
         if (result == JOptionPane.YES_OPTION) {
             Thread serverThread = new Thread(() -> {
                 try {
-                    WhatsAppServer.main(new String[] {});
+                    AppServer.main(new String[] {});
                 } catch (Exception ex) {
                     SwingUtilities.invokeLater(() -> JOptionPane.showMessageDialog(this,
                             "Error starting server: " + ex.getMessage(),
@@ -228,7 +228,7 @@ public class ChatApp extends JFrame {
     private void startClient() {
         SwingUtilities.invokeLater(() -> {
             try {
-                WhatsAppClient client = new WhatsAppClient();
+                AppClient client = new AppClient();
                 client.setVisible(true);
                 client.connect();
             } catch (Exception ex) {

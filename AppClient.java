@@ -14,7 +14,7 @@ import javax.imageio.ImageIO;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
-public class WhatsAppClient extends JFrame {
+public class AppClient extends JFrame {
 
     // ── App colour palette ────────────────────────────────────────────────────
     private static final Color APP_DARK = new Color(7, 94, 84);
@@ -50,8 +50,8 @@ public class WhatsAppClient extends JFrame {
     private final DateTimeFormatter timeFmt = DateTimeFormatter.ofPattern("HH:mm");
 
     // ─────────────────────────────────────────────────────────────────────────
-    public WhatsAppClient() {
-        setTitle("ChitChat");
+    public AppClient() {
+        setTitle("Talksy");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(920, 650);
         setMinimumSize(new Dimension(700, 500));
@@ -87,7 +87,7 @@ public class WhatsAppClient extends JFrame {
         sidebarHeader.setBorder(new EmptyBorder(0, 14, 0, 14));
         sidebarHeader.setOpaque(false);
 
-        JLabel appName = new JLabel("ChitChat");
+        JLabel appName = new JLabel("Talksy");
         appName.setFont(new Font("Segoe UI", Font.BOLD, 17));
         appName.setForeground(Color.WHITE);
 
@@ -627,12 +627,12 @@ public class WhatsAppClient extends JFrame {
             out = new PrintWriter(socket.getOutputStream(), true);
 
             String name = JOptionPane.showInputDialog(this,
-                    "Enter your username:", "ChitChat Login", JOptionPane.PLAIN_MESSAGE);
+                    "Enter your username:", "Talksy Login", JOptionPane.PLAIN_MESSAGE);
             if (name == null || name.trim().isEmpty())
                 name = "User" + (int) (Math.random() * 1000);
             userName = name.trim();
             out.println("USERNAME:" + userName);
-            setTitle("ChitChat — " + userName);
+            setTitle("Talksy — " + userName);
             headerStatusLabel.setText("Online");
 
             addInfoMessage("Connected as \"" + userName + "\"");
@@ -841,7 +841,7 @@ public class WhatsAppClient extends JFrame {
             joinBtn.setText("Joining...");
             joinBtn.setEnabled(false);
             // Open video call window for this client
-            new VideoCallWindow(WhatsAppClient.this, userName, caller).setVisible(true);
+            new VideoCallWindow(AppClient.this, userName, caller).setVisible(true);
         });
 
         // Decline button
@@ -1016,7 +1016,7 @@ public class WhatsAppClient extends JFrame {
         } catch (Exception ignored) {
         }
         SwingUtilities.invokeLater(() -> {
-            WhatsAppClient c = new WhatsAppClient();
+            AppClient c = new AppClient();
             c.setVisible(true);
             c.connect();
         });

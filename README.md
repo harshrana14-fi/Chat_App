@@ -1,4 +1,4 @@
-# ChitChat - Java WhatsApp-Style Chat Application
+# Talksy - Java WhatsApp-Style Chat Application
 
 A fully functional desktop chat application built with Java Swing for the UI and Java sockets for networking, featuring WhatsApp-like functionality.
 
@@ -48,7 +48,7 @@ You can also run the server and client separately from the terminal:
 
 1. **Start the server:**
    ```bash
-   java WhatsAppServer
+   java AppServer
    ```
 
 2. **Start clients in separate terminals:**

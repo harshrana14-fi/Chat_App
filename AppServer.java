@@ -4,7 +4,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class WhatsAppServer {
+public class AppServer {
     private static final int PORT = 9999;
     public static final Map<String, ClientHandler> clients = new ConcurrentHashMap<>();
     private static final List<ClientHandler> clientHandlers = new CopyOnWriteArrayList<>();
@@ -136,24 +136,24 @@ class ClientHandler extends Thread {
                 username = initialMessage.substring(9); // Remove "USERNAME:" prefix
                 
                 // Check if username is already taken
-                if (WhatsAppServer.getClients().containsKey(username)) {
+                if (AppServer.getClients().containsKey(username)) {
                     out.println("ERROR:Username already taken. Please choose another one.");
                     closeResources();
                     return;
                 }
                 
                 // Add client to the server's client list
-                WhatsAppServer.clients.put(username, this);
+                AppServer.clients.put(username, this);
                 System.out.println("User '" + username + "' joined the chat");
                 
                 // Send welcome message
                 out.println("SYSTEM:Welcome to WhatsApp-style chat, " + username + "!");
                 
                 // Notify others about new user
-                WhatsAppServer.broadcastMessage("SYSTEM:" + username + " joined the chat", this);
+                AppServer.broadcastMessage("SYSTEM:" + username + " joined the chat", this);
                 
                 // Send updated user list to all clients
-                WhatsAppServer.broadcastUserList();
+                AppServer.broadcastUserList();
             } else {
                 closeResources();
                 return;
@@ -175,7 +175,7 @@ class ClientHandler extends Thread {
                     if (parts.length >= 3) {
                         String recipient = parts[1];
                         String privateMsg = parts[2];
-                        WhatsAppServer.sendPrivateMessage(username, recipient, privateMsg);
+                        AppServer.sendPrivateMessage(username, recipient, privateMsg);
                     }
                 } else if (message.startsWith("IMG_PRIVATE:")) {
                     // Private image: IMG_PRIVATE:recipient:imageData
@@ -183,17 +183,17 @@ class ClientHandler extends Thread {
                     if (parts.length >= 3) {
                         String recipient = parts[1];
                         String imageData = parts[2];
-                        WhatsAppServer.sendPrivateImage(username, recipient, imageData);
+                        AppServer.sendPrivateImage(username, recipient, imageData);
                     }
                 } else {
                     // Regular chat message
-                    WhatsAppServer.broadcastMessage(username + ": " + message, this);
+                    AppServer.broadcastMessage(username + ": " + message, this);
                 }
             }
         } catch (IOException e) {
             System.err.println("Error handling client: " + e.getMessage());
         } finally {
-            WhatsAppServer.removeClient(this);
+           AppServer.removeClient(this);
             closeResources();
         }
     }
@@ -202,7 +202,7 @@ class ClientHandler extends Thread {
         if (command.equals("/users")) {
             // Send user list to this client only
             StringBuilder userList = new StringBuilder("USERLIST:");
-            for (String user : WhatsAppServer.getClients().keySet()) {
+            for (String user : AppServer.getClients().keySet()) {
                 userList.append(user).append(", ");
             }
             if (userList.length() > "USERLIST:".length()) {
@@ -216,7 +216,7 @@ class ClientHandler extends Thread {
                 String targetUser = parts[1];
                 String privateMsg = parts[2];
                 
-                WhatsAppServer.sendPrivateMessage(username, targetUser, privateMsg);
+                AppServer.sendPrivateMessage(username, targetUser, privateMsg);
             }
         } else if (command.equals("/help")) {
             sendMessage("COMMANDS: /users (show online users), /msg username message (private message), /help (show this)");
