@@ -1,4 +1,4 @@
-# Talksy - Java WhatsApp-Style Chat Application
+# Talksy - Java Chat Application
 
 A fully functional desktop chat application built with Java Swing for the UI and Java sockets for networking, featuring WhatsApp-like functionality.
 
